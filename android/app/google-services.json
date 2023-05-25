@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "830555547016",
+    "project_id": "cr-dev-portfolio",
+    "storage_bucket": "cr-dev-portfolio.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:830555547016:android:3e837d859af5e418e4463d",
+        "android_client_info": {
+          "package_name": "com.example.my_portfolio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "830555547016-drh60a5rhgi3mnp75ghnuibfjgsoohd7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZJ6A2tpXX_ajTNhwpzlXxiQFd3T-Ybik"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "830555547016-drh60a5rhgi3mnp75ghnuibfjgsoohd7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
