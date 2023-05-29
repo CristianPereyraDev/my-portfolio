@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/components/about.dart';
 import 'package:my_portfolio/services/firebase_service.dart';
 
-class About extends StatefulWidget {
-  const About({Key? key}) : super(key: key);
+class AboutPage extends StatefulWidget {
+  const AboutPage({Key? key}) : super(key: key);
 
   @override
-  State<About> createState() => _AboutState();
+  State<AboutPage> createState() => _AboutPageState();
 }
 
-class _AboutState extends State<About> {
+class _AboutPageState extends State<AboutPage> {
   late Future<String> futureAboutText;
 
   @override
@@ -26,7 +27,7 @@ class _AboutState extends State<About> {
           if (snapshot.hasData) {
             return Text(snapshot.data ?? 'Not data provided');
           } else if (snapshot.hasError) {
-            return Text('${snapshot.error}');
+            return const About();
           }
           // Loading.
           return const CircularProgressIndicator();

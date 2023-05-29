@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/components/about.dart';
 import 'package:my_portfolio/models/skill_model.dart';
 import 'package:my_portfolio/services/firebase_service.dart';
 
@@ -56,7 +57,7 @@ class _HomePageState extends State<HomePage> {
               ],
             );
           } else if (snapshot.hasError) {
-            return Text('${snapshot.error}');
+            return const About();
           }
           return const CircularProgressIndicator();
         },

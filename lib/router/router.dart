@@ -32,7 +32,7 @@ final router = GoRouter(
         ),
         GoRoute(
           path: "/about",
-          builder: (context, state) => const About(),
+          builder: (context, state) => const AboutPage(),
         ),
         GoRoute(
           path: "/contact",
