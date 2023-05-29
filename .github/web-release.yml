@@ -1,0 +1,20 @@
+name: Web release
+
+on:
+  push:
+    branches: ['master']
+  workflow_dispath:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.10.2'
+          channel: 'stable'
+      - name: Get dependencies
+        run: flutter pub get
+      - name: Start release build
+        run: flutter build web --release --web-renderer html --no-tree-shake-icons

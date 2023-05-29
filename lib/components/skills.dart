@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../models/skill_model.dart';
 
@@ -25,8 +26,11 @@ class _SkillListState extends State<SkillList> {
         itemCount: widget.skills.length,
         itemBuilder: (context, index, page) => ListTile(
           dense: false,
-          leading: FaIcon(
-              IconDataBrands(int.parse(widget.skills[index].fontAwesomeCode))),
+          leading: SvgPicture.network(
+            widget.skills[index].imageURL,
+            width: 50.0,
+            height: 50.0,
+          ),
           title: Text(widget.skills[index].name),
         ),
         options:

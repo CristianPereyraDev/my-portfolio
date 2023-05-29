@@ -57,6 +57,7 @@ class _HomePageState extends State<HomePage> {
               ],
             );
           } else if (snapshot.hasError) {
+            print(snapshot.error);
             return const About();
           }
           return const CircularProgressIndicator();
