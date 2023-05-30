@@ -1,20 +1,32 @@
-name: Web release
+name: Build and Deploy
 
 on:
   push:
-    branches: ['master']
+    branches: ['main']
   workflow_dispatch:
 
 jobs:
-  build:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v2
+      - name: Checkout 🛎️
+        uses: actions/checkout@v3
+
+      - name: Get Flutter
+        uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.10.2'
           channel: 'stable'
+
       - name: Get dependencies
         run: flutter pub get
+
       - name: Start release build
         run: flutter build web --release --web-renderer html --no-tree-shake-icons
+
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: build/web # The folder the action should deploy.
+          token: ${{ secrets.DEPLOY_SECRET }}
+          repository-name: CristianPereyraDev/my-portfolio
