@@ -31,10 +31,6 @@ final router = GoRouter(
           builder: (context, state) => const WorkPage(),
         ),
         GoRoute(
-          path: "/about",
-          builder: (context, state) => const AboutPage(),
-        ),
-        GoRoute(
           path: "/contact",
           builder: (context, state) => const Contact(),
         ),

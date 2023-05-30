@@ -32,10 +32,6 @@ class NavBarDesktop extends StatelessWidget {
           child: const Text("Work"),
         ),
         TextButton(
-          onPressed: () => context.go("/about"),
-          child: const Text("About"),
-        ),
-        TextButton(
           onPressed: () => context.go("/contact"),
           child: const Text("Contact"),
         ),
