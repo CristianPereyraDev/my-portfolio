@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/components/about.dart';
+import 'package:my_portfolio/configs/general.dart';
 import 'package:my_portfolio/models/skill_model.dart';
 import 'package:my_portfolio/services/firebase_service.dart';
 
@@ -25,44 +25,66 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: FutureBuilder(
-        future: Future.wait([futureAbout, futureSkills]),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final aboutText = snapshot.data![0] as String;
-            final skills = snapshot.data![1] as List<Skill>;
-            return Row(
-              children: [
-                Expanded(
-                  flex: 2,
-                  child: Center(child: SkillList(skills: skills)),
+    return FutureBuilder(
+      future: Future.wait([futureAbout, futureSkills]),
+      builder: (context, snapshot) {
+        if (!snapshot.hasData && !snapshot.hasError) {
+          return const Center(
+            child: SizedBox(
+              width: 100,
+              height: 100,
+              child: CircularProgressIndicator(),
+            ),
+          );
+        }
+
+        String aboutText = ConfigGeneral.aboutText;
+        List<Skill> skills = ConfigGeneral.skills;
+
+        if (snapshot.hasData) {
+          aboutText = snapshot.data![0] as String;
+          skills = snapshot.data![1] as List<Skill>;
+        }
+
+        return FractionallySizedBox(
+          heightFactor: 0.5,
+          widthFactor: 1,
+          child: Row(
+            children: [
+              // Skill list
+              Expanded(
+                flex: 2,
+                child: Column(
+                  children: [
+                    const Text(
+                      'My skils',
+                      textScaleFactor: 2.0,
+                    ),
+                    Expanded(child: SkillList(skills: skills)),
+                  ],
                 ),
-                Expanded(
-                  flex: 1,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.brown[300],
-                      borderRadius: const BorderRadius.only(
-                          topLeft: Radius.circular(80.0),
-                          bottomLeft: Radius.elliptical(16.0, 8.0)),
-                    ),
-                    padding: const EdgeInsets.all(40.0),
-                    child: Text(
-                      aboutText,
-                      textScaleFactor: 1.5,
-                    ),
+              ),
+              // About text
+              Expanded(
+                flex: 1,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.brown[300],
+                    borderRadius: const BorderRadius.only(
+                        topLeft: Radius.circular(80.0),
+                        bottomLeft: Radius.elliptical(16.0, 8.0)),
                   ),
-                )
-              ],
-            );
-          } else if (snapshot.hasError) {
-            print(snapshot.error);
-            return const About();
-          }
-          return const CircularProgressIndicator();
-        },
-      ),
+                  padding: const EdgeInsets.all(40.0),
+                  child: Text(
+                    aboutText,
+                    textScaleFactor: 1.5,
+                  ),
+                ),
+              )
+            ],
+          ),
+        );
+      },
     );
   }
 }

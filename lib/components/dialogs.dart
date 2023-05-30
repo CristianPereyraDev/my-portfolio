@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 Future<void> showCustomDialog(
-    BuildContext context, String title, String message) async {
+    BuildContext context, String title, Widget message) async {
   return showDialog<void>(
     context: context,
     barrierDismissible: false, // user must tap button!
@@ -9,7 +9,7 @@ Future<void> showCustomDialog(
       return AlertDialog(
         title: Text(title),
         content: SingleChildScrollView(
-          child: Text(message),
+          child: message,
         ),
         actions: <Widget>[
           TextButton(

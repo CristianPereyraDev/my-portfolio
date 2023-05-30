@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:my_portfolio/pages/about/about.dart';
 import 'package:my_portfolio/pages/contact/contact.dart';
 import 'package:my_portfolio/pages/home/home.dart';
 import 'package:my_portfolio/pages/main_scaffold.dart';

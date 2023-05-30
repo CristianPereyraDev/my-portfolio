@@ -28,7 +28,6 @@ class _ContactState extends State<Contact> {
               'name': _fbkey.currentState!.value['name'],
               'email': _fbkey.currentState!.value['email'],
               'details': _fbkey.currentState!.value['details'],
-              'category': _fbkey.currentState!.value['category']
             },
           )
           .then(
@@ -40,7 +39,7 @@ class _ContactState extends State<Contact> {
               showCustomDialog(
                 context,
                 'Sucess',
-                'Mensaje registrado correctamente',
+                const Text('Your message was registered'),
               )
             },
           )
@@ -52,7 +51,22 @@ class _ContactState extends State<Contact> {
               showCustomDialog(
                 context,
                 'Error',
-                'Hubo un error al registrar el mensaje',
+                Column(
+                  children: [
+                    const Text('Your message could not be registered.'),
+                    RichText(
+                      text: TextSpan(
+                          text: 'Please contact me by ',
+                          style: DefaultTextStyle.of(context).style,
+                          children: const [
+                            TextSpan(
+                              text: 'cristian.pereyra.dev@gmail.com',
+                              style: TextStyle(fontWeight: FontWeight.bold),
+                            )
+                          ]),
+                    ),
+                  ],
+                ),
               )
             },
           );
@@ -67,7 +81,7 @@ class _ContactState extends State<Contact> {
       child: Column(
         children: [
           const Text(
-            'Contact Form',
+            'Tell me what you need',
             textScaleFactor: 2.0,
           ),
           Expanded(
@@ -81,7 +95,7 @@ class _ContactState extends State<Contact> {
                       FormBuilderValidators.min(3),
                       FormBuilderValidators.required()
                     ]),
-                    decoration: const InputDecoration(labelText: 'contactName'),
+                    decoration: const InputDecoration(labelText: 'Your name'),
                   ),
                   FormBuilderTextField(
                     name: "email",
@@ -90,28 +104,14 @@ class _ContactState extends State<Contact> {
                       FormBuilderValidators.required()
                     ]),
                     decoration:
-                        const InputDecoration(labelText: 'contactEmail'),
-                  ),
-                  FormBuilderFilterChip(
-                    decoration: const InputDecoration(
-                        labelText: 'contactQuery',
-                        labelStyle: TextStyle(
-                            fontSize: 21, fontWeight: FontWeight.normal)),
-                    name: "category",
-                    options: const [
-                      FormBuilderChipOption<String>(
-                        value: "web",
-                        child: Text('web'),
-                      ),
-                    ],
+                        const InputDecoration(labelText: 'Contact email'),
                   ),
                   FormBuilderTextField(
                     name: 'details',
                     maxLines: 5,
                     validator: FormBuilderValidators.compose(
                         [FormBuilderValidators.required()]),
-                    decoration:
-                        const InputDecoration(labelText: 'contactMessage'),
+                    decoration: const InputDecoration(labelText: 'Message'),
                   ),
                   const SizedBox(height: 16),
                   // Submit button
