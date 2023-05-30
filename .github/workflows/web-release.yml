@@ -28,5 +28,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: build/web # The folder the action should deploy.
-          token: ${{ secrets.DEPLOY_SECRET }}
+          token: ${{ secrets.PERSONAL_TOKEN }}
           repository-name: CristianPereyraDev/my-portfolio
