@@ -69,7 +69,7 @@ class _HomePageState extends State<HomePage> {
                 flex: 1,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: Colors.brown[300],
+                    color: Theme.of(context).appBarTheme.backgroundColor,
                     borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(80.0),
                         bottomLeft: Radius.elliptical(16.0, 8.0)),
@@ -78,6 +78,8 @@ class _HomePageState extends State<HomePage> {
                   child: Text(
                     aboutText,
                     textScaleFactor: 1.5,
+                    style:
+                        TextStyle(color: Theme.of(context).colorScheme.primary),
                   ),
                 ),
               )
