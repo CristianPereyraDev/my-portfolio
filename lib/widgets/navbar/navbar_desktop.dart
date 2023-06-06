@@ -7,7 +7,9 @@ class NavBarDesktop extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
+      toolbarHeight: 80.0,
       title: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           const Text('Cristian Pereyra'),
           RichText(

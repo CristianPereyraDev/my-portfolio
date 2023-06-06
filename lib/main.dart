@@ -36,8 +36,11 @@ class MyApp extends StatelessWidget {
       routerConfig: router,
       title: '{ Cr-Dev }',
       theme: themeDark.copyWith(
-          textTheme: GoogleFonts.secularOneTextTheme(themeDark.textTheme),
-          appBarTheme: const AppBarTheme(color: Color.fromRGBO(46, 46, 41, 1))),
+        textTheme: GoogleFonts.secularOneTextTheme(themeDark.textTheme),
+        appBarTheme: const AppBarTheme(
+          color: Color.fromRGBO(46, 46, 41, 1),
+        ),
+      ),
     );
   }
 }

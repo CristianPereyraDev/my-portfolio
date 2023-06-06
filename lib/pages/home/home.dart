@@ -77,7 +77,7 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.all(40.0),
                   child: Text(
                     aboutText,
-                    textScaleFactor: 1.5,
+                    textScaleFactor: 1.4,
                     style:
                         TextStyle(color: Theme.of(context).colorScheme.primary),
                   ),
