@@ -28,33 +28,30 @@ class _WorkPageState extends State<WorkPage> {
         future: futureWorks,
         builder: (context, snapshot) {
           if (snapshot.hasData && snapshot.data!.isNotEmpty) {
-            debugPrint('hasData');
+            final works = snapshot.data ?? [];
             return DefaultTextStyle.merge(
               style: const TextStyle(fontSize: 24),
               child: ListView.builder(
-                itemCount: snapshot.data!.length,
+                itemCount: works.length,
                 itemBuilder: (context, index) => Row(
                   children: [
                     TextButton(
                       onPressed: () => {
                         ConfigGeneral.launchGeneralUrl(
-                          Uri.parse(snapshot.data![index].url),
+                          Uri.parse(works[index].url),
                           context,
                         )
                       },
                       child: Text(
-                        ConfigGeneral.works[index].name,
+                        works[index].name,
                         style: const TextStyle(fontSize: 24),
                       ),
                     ),
                     const Text(' | '),
-                    Text(snapshot.data![index].type),
+                    Text(works[index].type),
                     const Text(' | '),
                     Text(
-                      ConfigGeneral.works[index].released
-                          .toDate()
-                          .year
-                          .toString(),
+                      works[index].released.toDate().year.toString(),
                     ),
                   ],
                 ),
