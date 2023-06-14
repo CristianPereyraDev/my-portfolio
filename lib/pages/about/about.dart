@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/components/about.dart';
-import 'package:my_portfolio/services/firebase_service.dart';
+import 'package:my_portfolio/models/app_model.dart';
+import 'package:provider/provider.dart';
 
 class AboutPage extends StatefulWidget {
   const AboutPage({Key? key}) : super(key: key);
@@ -10,29 +10,14 @@ class AboutPage extends StatefulWidget {
 }
 
 class _AboutPageState extends State<AboutPage> {
-  late Future<String> futureAboutText;
-
   @override
   void initState() {
     super.initState();
-    futureAboutText = FirebaseService().getPortfolioSettings('aboutText');
   }
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: FutureBuilder<String>(
-        future: futureAboutText,
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            return Text(snapshot.data ?? 'Not data provided');
-          } else if (snapshot.hasError) {
-            return const About();
-          }
-          // Loading.
-          return const CircularProgressIndicator();
-        },
-      ),
-    );
+    final appSettings = context.read<AppSetting>();
+    return Center(child: Text(appSettings.aboutText));
   }
 }

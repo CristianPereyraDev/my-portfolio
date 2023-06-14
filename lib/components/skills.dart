@@ -1,6 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 import '../models/skill_model.dart';
 
@@ -22,17 +21,23 @@ class _SkillListState extends State<SkillList> {
     return widget.skills.isNotEmpty
         ? CarouselSlider.builder(
             itemCount: widget.skills.length,
-            itemBuilder: (context, index, page) => ListTile(
-              dense: false,
-              leading: SvgPicture.network(
-                widget.skills[index].imageURL,
-                width: 50.0,
-                height: 50.0,
-              ),
-              title: Text(widget.skills[index].name),
+            itemBuilder: (context, index, page) {
+              return ListTile(
+                isThreeLine: widget.skills[index].description.isNotEmpty,
+                dense: false,
+                leading: Image.network(
+                  widget.skills[index].imageURL,
+                ),
+                title: Text(widget.skills[index].name),
+                subtitle: Text(widget.skills[index].description),
+              );
+            },
+            options: CarouselOptions(
+              autoPlay: true,
+              autoPlayInterval: const Duration(seconds: 6),
+              scrollDirection: Axis.vertical,
+              autoPlayCurve: Curves.linear,
             ),
-            options:
-                CarouselOptions(autoPlay: true, scrollDirection: Axis.vertical),
           )
         : const Text('Not skills provided');
   }

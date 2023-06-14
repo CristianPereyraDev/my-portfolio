@@ -1,6 +1,9 @@
+import 'dart:js';
+
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_portfolio/pages/contact/contact.dart';
+import 'package:my_portfolio/pages/errors/initialization_error.dart';
 import 'package:my_portfolio/pages/home/home.dart';
 import 'package:my_portfolio/pages/main_scaffold.dart';
 import 'package:my_portfolio/pages/work/work.dart';
@@ -23,6 +26,7 @@ final router = GoRouter(
       routes: [
         GoRoute(
           path: "/",
+          name: 'home',
           builder: (context, state) => const HomePage(),
         ),
         GoRoute(
@@ -33,6 +37,11 @@ final router = GoRouter(
           path: "/contact",
           builder: (context, state) => const Contact(),
         ),
+        GoRoute(
+          path: '/initError',
+          name: 'InitError',
+          builder: (context, state) => const InitializationError(),
+        )
       ],
     )
   ],

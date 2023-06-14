@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/configs/general.dart';
+import 'package:my_portfolio/models/app_model.dart';
 import 'package:my_portfolio/models/skill_model.dart';
 import 'package:my_portfolio/services/firebase_service.dart';
+import 'package:provider/provider.dart';
 
 import '../../components/skills.dart';
 
@@ -14,20 +16,22 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late Future<List<Skill>> futureSkills;
-  late Future<String> futureAbout;
 
   @override
   void initState() {
     super.initState();
     futureSkills = FirebaseService().getSkills();
-    futureAbout = FirebaseService().getPortfolioSettings('aboutText');
   }
 
   @override
   Widget build(BuildContext context) {
+    final appSettings = context.read<AppSetting>();
+
     return FutureBuilder(
-      future: Future.wait([futureAbout, futureSkills]),
+      future: Future.wait([futureSkills]),
       builder: (context, snapshot) {
+        List<Skill> skills;
+
         if (!snapshot.hasData && !snapshot.hasError) {
           return const Center(
             child: SizedBox(
@@ -36,19 +40,17 @@ class _HomePageState extends State<HomePage> {
               child: CircularProgressIndicator(),
             ),
           );
-        }
-
-        String aboutText = ConfigGeneral.aboutText;
-        List<Skill> skills = ConfigGeneral.skills;
-
-        if (snapshot.hasData) {
-          aboutText = snapshot.data![0] as String;
-          skills = snapshot.data![1] as List<Skill>;
+        } else if (snapshot.hasError) {
+          skills = ConfigGeneral.skills;
+        } else if (snapshot.hasData && snapshot.data![0].isEmpty) {
+          skills = ConfigGeneral.skills;
+        } else {
+          skills = snapshot.data![0];
         }
 
         return FractionallySizedBox(
-          heightFactor: 0.5,
-          widthFactor: 1,
+          heightFactor: 0.8,
+          widthFactor: .95,
           child: Row(
             children: [
               // Skill list
@@ -57,7 +59,7 @@ class _HomePageState extends State<HomePage> {
                 child: Column(
                   children: [
                     const Text(
-                      'My skils',
+                      'My skills',
                       textScaleFactor: 2.0,
                     ),
                     Expanded(child: SkillList(skills: skills)),
@@ -72,11 +74,13 @@ class _HomePageState extends State<HomePage> {
                     color: Theme.of(context).appBarTheme.backgroundColor,
                     borderRadius: const BorderRadius.only(
                         topLeft: Radius.circular(80.0),
-                        bottomLeft: Radius.elliptical(16.0, 8.0)),
+                        topRight: Radius.elliptical(16.0, 8.0),
+                        bottomLeft: Radius.elliptical(16.0, 8.0),
+                        bottomRight: Radius.circular(80.0)),
                   ),
                   padding: const EdgeInsets.all(40.0),
                   child: Text(
-                    aboutText,
+                    appSettings.aboutText,
                     textScaleFactor: 1.4,
                     style:
                         TextStyle(color: Theme.of(context).colorScheme.primary),

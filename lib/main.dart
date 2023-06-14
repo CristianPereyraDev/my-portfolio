@@ -2,8 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/configs/themes.dart';
+import 'package:my_portfolio/models/app_model.dart';
+import 'package:my_portfolio/pages/errors/initialization_error.dart';
 import 'package:my_portfolio/router/router.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:my_portfolio/services/firebase_service.dart';
+import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -31,16 +35,50 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      routerConfig: router,
-      title: '{ Cr-Dev }',
-      theme: themeDark.copyWith(
-        textTheme: GoogleFonts.secularOneTextTheme(themeDark.textTheme),
-        appBarTheme: const AppBarTheme(
-          color: Color.fromRGBO(46, 46, 41, 1),
-        ),
-      ),
-    );
+    return FutureBuilder<AppSetting>(
+        future: FirebaseService().getPortfolioSettings(),
+        builder: (context, snapshot) {
+          if (snapshot.hasError) {
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              title: '{ Cr-Dev }',
+              theme: themeDark.copyWith(
+                textTheme: GoogleFonts.secularOneTextTheme(themeDark.textTheme),
+                appBarTheme: const AppBarTheme(
+                  color: Color.fromRGBO(46, 46, 41, 1),
+                ),
+              ),
+              home: const InitializationError(),
+            );
+          } else if (snapshot.hasData) {
+            return Provider.value(
+                value: snapshot.data,
+                child: MaterialApp.router(
+                  debugShowCheckedModeBanner: false,
+                  routerConfig: router,
+                  title: '{ Cr-Dev }',
+                  theme: themeDark.copyWith(
+                    textTheme:
+                        GoogleFonts.secularOneTextTheme(themeDark.textTheme),
+                    appBarTheme: const AppBarTheme(
+                      color: Color.fromRGBO(46, 46, 41, 1),
+                    ),
+                  ),
+                ));
+          }
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            title: '{ Cr-Dev }',
+            theme: themeDark.copyWith(
+              textTheme: GoogleFonts.secularOneTextTheme(themeDark.textTheme),
+              appBarTheme: const AppBarTheme(
+                color: Color.fromRGBO(46, 46, 41, 1),
+              ),
+            ),
+            home: const Scaffold(
+              body: Center(child: CircularProgressIndicator()),
+            ),
+          );
+        });
   }
 }
