@@ -10,6 +10,7 @@ import 'package:my_portfolio/services/firebase_service.dart';
 import 'package:provider/provider.dart';
 import 'firebase_options.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,20 +53,31 @@ class MyApp extends StatelessWidget {
             );
           } else if (snapshot.hasData) {
             return Provider.value(
-                value: snapshot.data,
-                child: MaterialApp.router(
-                  debugShowCheckedModeBanner: false,
-                  routerConfig: router,
-                  title: '{ Cr-Dev }',
-                  theme: themeDark.copyWith(
-                    textTheme:
-                        GoogleFonts.secularOneTextTheme(themeDark.textTheme),
-                    appBarTheme: const AppBarTheme(
-                      color: Color.fromRGBO(46, 46, 41, 1),
-                    ),
+              value: snapshot.data,
+              child: MaterialApp.router(
+                debugShowCheckedModeBanner: false,
+                routerConfig: router,
+                title: '{ Cr-Dev }',
+                theme: themeDark.copyWith(
+                  textTheme:
+                      GoogleFonts.secularOneTextTheme(themeDark.textTheme),
+                  appBarTheme: const AppBarTheme(
+                    color: Color.fromRGBO(46, 46, 41, 1),
                   ),
-                ));
+                ),
+                builder: (context, child) => ResponsiveBreakpoints(
+                  breakpoints: const [
+                    Breakpoint(start: 0, end: 450, name: MOBILE),
+                    Breakpoint(start: 451, end: 800, name: TABLET),
+                    Breakpoint(start: 801, end: 1920, name: DESKTOP),
+                    Breakpoint(start: 1921, end: double.infinity, name: '4K'),
+                  ],
+                  child: child!,
+                ),
+              ),
+            );
           }
+          // return Loading widget
           return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: '{ Cr-Dev }',

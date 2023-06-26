@@ -3,6 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_portfolio/components/dialogs.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 class Contact extends StatefulWidget {
   const Contact({Key? key}) : super(key: key);
@@ -75,8 +76,12 @@ class _ContactState extends State<Contact> {
 
   @override
   Widget build(BuildContext context) {
+    var screenWidth = ResponsiveBreakpoints.of(context).screenWidth;
+
     return FractionallySizedBox(
-      widthFactor: 0.35,
+      widthFactor: ResponsiveBreakpoints.of(context).smallerOrEqualTo(TABLET)
+          ? 0.95
+          : 0.35,
       heightFactor: .9,
       child: Column(
         children: [
@@ -115,11 +120,10 @@ class _ContactState extends State<Contact> {
                   ),
                   const SizedBox(height: 16),
                   // Submit button
-                  ElevatedButton.icon(
-                    icon: _isLoading
+                  ElevatedButton(
+                    child: _isLoading
                         ? const CircularProgressIndicator()
-                        : const Icon(Icons.add),
-                    label: Text(_isLoading ? 'Submit' : ''),
+                        : Text(_isLoading ? '' : 'Submit'),
                     onPressed: () => _isLoading ? null : _handleSubmit(),
                   )
                 ],

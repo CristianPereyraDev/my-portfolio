@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/widgets/navbar/navbar_desktop.dart';
+import 'package:my_portfolio/widgets/navbar/navbar.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 
 class MainScaffold extends StatelessWidget {
   const MainScaffold({Key? key, required this.child}) : super(key: key);
@@ -8,11 +9,20 @@ class MainScaffold extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appBarHeight =
+        ResponsiveBreakpoints.of(context).largerThan(TABLET) ? 80.0 : 60.0;
+
     return Scaffold(
-      //Add Key
-      appBar: const PreferredSize(
-        preferredSize: Size.fromHeight(80.0),
-        child: NavBarDesktop(),
+      drawer: ResponsiveBreakpoints.of(context).smallerOrEqualTo(TABLET)
+          ? const Drawer(
+              child: DrawerMenu(),
+            )
+          : null,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(appBarHeight),
+        child: ResponsiveAppBar(
+          height: appBarHeight,
+        ),
       ),
       body: child,
     );
