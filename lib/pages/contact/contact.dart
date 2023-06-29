@@ -76,12 +76,10 @@ class _ContactState extends State<Contact> {
 
   @override
   Widget build(BuildContext context) {
-    var screenWidth = ResponsiveBreakpoints.of(context).screenWidth;
+    var breakpoints = ResponsiveBreakpoints.of(context);
 
     return FractionallySizedBox(
-      widthFactor: ResponsiveBreakpoints.of(context).smallerOrEqualTo(TABLET)
-          ? 0.95
-          : 0.35,
+      widthFactor: breakpoints.smallerOrEqualTo(TABLET) ? 0.95 : 0.35,
       heightFactor: .9,
       child: Column(
         children: [
