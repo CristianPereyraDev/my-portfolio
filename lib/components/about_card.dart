@@ -14,33 +14,29 @@ class AboutCard extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenWidth = ResponsiveBreakpoints.of(context).screenWidth;
     var bgColor = Theme.of(context).appBarTheme.backgroundColor ??
-        const Color.fromRGBO(46, 46, 41, 0.8);
+        const Color.fromRGBO(46, 46, 41, 1.0);
 
-    return Container(
-      decoration: BoxDecoration(
-        color: bgColor.withOpacity(0.8),
+    return Card(
+      elevation: 10.0,
+      color: bgColor.withOpacity(0.8),
+      shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(4.0 * screenWidth * .001),
           topRight: Radius.circular(16.0 * screenWidth * .001),
           bottomLeft: Radius.circular(64.0 * screenWidth * .001),
           bottomRight: Radius.circular(4.0 * screenWidth * .001),
         ),
-        boxShadow: const [
-          BoxShadow(
-            offset: Offset(0.0, 0.0),
-            blurRadius: 10.0,
-            blurStyle: BlurStyle.outer,
-          )
-        ],
       ),
-      padding: EdgeInsets.all(40.0 * screenWidth * .001),
-      child: Text(
-        appSettings.aboutText,
-        textScaleFactor: ResponsiveBreakpoints.of(context).isMobile
-            ? 1.0
-            : ResponsiveBreakpoints.of(context).isTablet
-                ? 1.1
-                : 1.2,
+      child: Container(
+        padding: EdgeInsets.all(40.0 * screenWidth * .001),
+        child: Text(
+          appSettings.aboutText,
+          textScaleFactor: ResponsiveBreakpoints.of(context).isMobile
+              ? 1.0
+              : ResponsiveBreakpoints.of(context).isTablet
+                  ? 1.1
+                  : 1.2,
+        ),
       ),
     );
   }
