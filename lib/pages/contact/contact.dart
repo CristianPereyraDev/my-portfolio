@@ -3,6 +3,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:my_portfolio/components/dialogs.dart';
+import 'package:my_portfolio/components/translucent_card.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class Contact extends StatefulWidget {
@@ -81,54 +82,56 @@ class _ContactState extends State<Contact> {
     return FractionallySizedBox(
       widthFactor: breakpoints.smallerOrEqualTo(TABLET) ? 0.95 : 0.35,
       heightFactor: .9,
-      child: Column(
-        children: [
-          const Text(
-            'Tell me what you need',
-            textScaleFactor: 2.0,
-          ),
-          Expanded(
-            child: FormBuilder(
-              key: _fbkey,
-              child: ListView(
-                children: <Widget>[
-                  FormBuilderTextField(
-                    name: "name",
-                    validator: FormBuilderValidators.compose([
-                      FormBuilderValidators.min(3),
-                      FormBuilderValidators.required()
-                    ]),
-                    decoration: const InputDecoration(labelText: 'Your name'),
-                  ),
-                  FormBuilderTextField(
-                    name: "email",
-                    validator: FormBuilderValidators.compose([
-                      FormBuilderValidators.email(),
-                      FormBuilderValidators.required()
-                    ]),
-                    decoration:
-                        const InputDecoration(labelText: 'Contact email'),
-                  ),
-                  FormBuilderTextField(
-                    name: 'details',
-                    maxLines: 5,
-                    validator: FormBuilderValidators.compose(
-                        [FormBuilderValidators.required()]),
-                    decoration: const InputDecoration(labelText: 'Message'),
-                  ),
-                  const SizedBox(height: 16),
-                  // Submit button
-                  ElevatedButton(
-                    child: _isLoading
-                        ? const CircularProgressIndicator()
-                        : Text(_isLoading ? '' : 'Submit'),
-                    onPressed: () => _isLoading ? null : _handleSubmit(),
-                  )
-                ],
+      child: TranslucentCard(
+        child: Column(
+          children: [
+            const Text(
+              'How can I help you?',
+              textScaleFactor: 2.0,
+            ),
+            Expanded(
+              child: FormBuilder(
+                key: _fbkey,
+                child: ListView(
+                  children: <Widget>[
+                    FormBuilderTextField(
+                      name: "name",
+                      validator: FormBuilderValidators.compose([
+                        FormBuilderValidators.min(3),
+                        FormBuilderValidators.required()
+                      ]),
+                      decoration: const InputDecoration(labelText: 'Your name'),
+                    ),
+                    FormBuilderTextField(
+                      name: "email",
+                      validator: FormBuilderValidators.compose([
+                        FormBuilderValidators.email(),
+                        FormBuilderValidators.required()
+                      ]),
+                      decoration:
+                          const InputDecoration(labelText: 'Contact email'),
+                    ),
+                    FormBuilderTextField(
+                      name: 'details',
+                      maxLines: 5,
+                      validator: FormBuilderValidators.compose(
+                          [FormBuilderValidators.required()]),
+                      decoration: const InputDecoration(labelText: 'Message'),
+                    ),
+                    const SizedBox(height: 16),
+                  ],
+                ),
               ),
             ),
-          ),
-        ],
+            // Submit button
+            ElevatedButton(
+              child: _isLoading
+                  ? const CircularProgressIndicator()
+                  : Text(_isLoading ? '' : 'Submit'),
+              onPressed: () => _isLoading ? null : _handleSubmit(),
+            )
+          ],
+        ),
       ),
     );
   }

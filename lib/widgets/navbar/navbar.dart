@@ -44,10 +44,17 @@ class DrawerMenu extends StatelessWidget {
   }
 }
 
-class ResponsiveAppBar extends StatelessWidget {
+class ResponsiveAppBar extends StatefulWidget {
   const ResponsiveAppBar({Key? key, required this.height}) : super(key: key);
 
   final double height;
+
+  @override
+  State<ResponsiveAppBar> createState() => _ResponsiveAppBarState();
+}
+
+class _ResponsiveAppBarState extends State<ResponsiveAppBar> {
+  String title = 'Home';
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +66,12 @@ class ResponsiveAppBar extends StatelessWidget {
       actions = [
         ...Navigation.values.map(
           (e) => TextButton(
-            onPressed: () => context.go(e.path),
+            onPressed: () {
+              context.go(e.path);
+              setState(() {
+                title = e.capitalizedName;
+              });
+            },
             child: Text(e.capitalizedName),
           ),
         )
@@ -82,31 +94,41 @@ class ResponsiveAppBar extends StatelessWidget {
     ]);
 
     return AppBar(
-      toolbarHeight: height,
-      title: ResponsiveBreakpoints.of(context).largerThan(TABLET)
-          ? InkWell(
-              onTap: () => context.goNamed('home'),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text('Cristian Pereyra'),
-                  RichText(
-                    text: TextSpan(
-                        style: DefaultTextStyle.of(context).style,
-                        children: const <TextSpan>[
-                          TextSpan(
-                              text: '{ ',
-                              style: TextStyle(color: Colors.amber)),
-                          TextSpan(text: 'Full Stack Developer'),
-                          TextSpan(
-                              text: ' }', style: TextStyle(color: Colors.amber))
-                        ]),
-                    textScaleFactor: .9,
-                  ),
-                ],
-              ),
-            )
-          : null,
+      toolbarHeight: widget.height,
+      centerTitle: true,
+      title: Text(title),
+      leadingWidth: 180.0,
+      leading: InkWell(
+        onTap: () => context.goNamed('home'),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text('Cristian Pereyra'),
+            RichText(
+              text: TextSpan(
+                  style: DefaultTextStyle.of(context).style,
+                  children: [
+                    TextSpan(
+                      text: '{ ',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary),
+                    ),
+                    TextSpan(
+                      text: 'Full Stack Developer',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.primary),
+                    ),
+                    TextSpan(
+                      text: ' }',
+                      style: TextStyle(
+                          color: Theme.of(context).colorScheme.secondary),
+                    )
+                  ]),
+              textScaleFactor: 1,
+            ),
+          ],
+        ),
+      ),
       actions: actions,
     );
   }

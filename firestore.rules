@@ -5,8 +5,8 @@ service cloud.firestore {
       allow write: if true;
       allow read: if true;
     }
-    match /messages/{document=**} {
-      allow write;
+    match /messages/{message} {
+      allow read, write: if true;
     }
   }
 }

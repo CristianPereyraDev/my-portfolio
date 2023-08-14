@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/components/about_card.dart';
 import 'package:my_portfolio/configs/general.dart';
 import 'package:my_portfolio/models/app_model.dart';
 import 'package:my_portfolio/models/skill_model.dart';
@@ -27,6 +28,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final appSettings = context.read<AppSetting>();
+    var responsiveBreakpoints = ResponsiveBreakpoints.of(context);
 
     return FutureBuilder(
       future: Future.wait([futureSkills]),
@@ -49,31 +51,40 @@ class _HomePageState extends State<HomePage> {
           skills = snapshot.data![0];
         }
 
-        if (ResponsiveBreakpoints.of(context).smallerOrEqualTo(TABLET)) {
+        // TABLETS AND PHONES
+        if (responsiveBreakpoints.smallerOrEqualTo(TABLET)) {
           return FractionallySizedBox(
             heightFactor: 0.95,
             widthFactor: 0.95,
             child: Column(
               children: [
-                AboutText(appSettings: appSettings),
-                Expanded(child: SkillList(skills: skills))
+                AboutCard(appSettings: appSettings),
+                Expanded(
+                  child: SkillList(skills: skills),
+                )
               ],
             ),
           );
         } else {
+          // DESKTOP
           return FractionallySizedBox(
-            heightFactor: 0.8,
+            heightFactor: 0.9,
             widthFactor: .95,
             child: Row(
               children: [
                 // Skill list
                 Expanded(
-                  flex: 2,
+                  flex: 1,
                   child: Column(
                     children: [
                       const Text(
                         'My skills',
                         textScaleFactor: 2.0,
+                        style: TextStyle(
+                          shadows: [
+                            Shadow(offset: Offset(-3.0, 0.0), blurRadius: 2.0)
+                          ],
+                        ),
                       ),
                       Expanded(child: SkillList(skills: skills)),
                     ],
@@ -82,51 +93,15 @@ class _HomePageState extends State<HomePage> {
                 // About text
                 Expanded(
                   flex: 1,
-                  child: AboutText(appSettings: appSettings),
-                )
+                  child: SizedBox.expand(
+                    child: AboutCard(appSettings: appSettings),
+                  ),
+                ),
               ],
             ),
           );
         }
       },
-    );
-  }
-}
-
-class AboutText extends StatelessWidget {
-  const AboutText({
-    super.key,
-    required this.appSettings,
-  });
-
-  final AppSetting appSettings;
-
-  @override
-  Widget build(BuildContext context) {
-    var screenWidth = ResponsiveBreakpoints.of(context).screenWidth;
-
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).appBarTheme.backgroundColor,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(80.0 * screenWidth * .001),
-          topRight: Radius.elliptical(
-              16.0 * screenWidth * .002, 8.0 * screenWidth * .001),
-          bottomLeft: Radius.elliptical(
-              16.0 * screenWidth * .002, 8.0 * screenWidth * .001),
-          bottomRight: Radius.circular(80.0 * screenWidth * .001),
-        ),
-      ),
-      padding: EdgeInsets.all(40.0 * screenWidth * .001),
-      child: Text(
-        appSettings.aboutText,
-        textScaleFactor: ResponsiveBreakpoints.of(context).isMobile
-            ? 1.0
-            : ResponsiveBreakpoints.of(context).isTablet
-                ? 1.1
-                : 1.4,
-        style: TextStyle(color: Theme.of(context).colorScheme.primary),
-      ),
     );
   }
 }

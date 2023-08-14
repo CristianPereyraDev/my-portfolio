@@ -1,5 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/components/skill_card.dart';
+import 'package:responsive_framework/responsive_breakpoints.dart';
 
 import '../models/skill_model.dart';
 
@@ -18,21 +20,20 @@ class SkillList extends StatefulWidget {
 class _SkillListState extends State<SkillList> {
   @override
   Widget build(BuildContext context) {
+    var screenWidth = ResponsiveBreakpoints.of(context).screenWidth;
+
     return widget.skills.isNotEmpty
         ? CarouselSlider.builder(
             itemCount: widget.skills.length,
             itemBuilder: (context, index, page) {
-              return ListTile(
-                isThreeLine: widget.skills[index].description.isNotEmpty,
-                dense: false,
-                leading: Image.network(
-                  widget.skills[index].imageURL,
-                ),
-                title: Text(widget.skills[index].name),
-                subtitle: Text(widget.skills[index].description),
+              return SkillCard(
+                title: widget.skills[index].name,
+                description: widget.skills[index].description,
+                imageUrl: widget.skills[index].imageURL,
               );
             },
             options: CarouselOptions(
+              viewportFraction: 1.0,
               autoPlay: true,
               autoPlayInterval: const Duration(seconds: 6),
               scrollDirection: Axis.vertical,

@@ -12,6 +12,13 @@ import 'firebase_options.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
+const responsiveBreakpoints = [
+  Breakpoint(start: 0, end: 450, name: MOBILE),
+  Breakpoint(start: 451, end: 800, name: TABLET),
+  Breakpoint(start: 801, end: 1920, name: DESKTOP),
+  Breakpoint(start: 1921, end: double.infinity, name: '4K'),
+];
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -49,7 +56,10 @@ class MyApp extends StatelessWidget {
                   color: Color.fromRGBO(46, 46, 41, 1),
                 ),
               ),
-              home: const InitializationError(),
+              home: const ResponsiveBreakpoints(
+                breakpoints: responsiveBreakpoints,
+                child: InitializationError(),
+              ),
             );
           } else if (snapshot.hasData) {
             return Provider.value(
@@ -66,12 +76,7 @@ class MyApp extends StatelessWidget {
                   ),
                 ),
                 builder: (context, child) => ResponsiveBreakpoints(
-                  breakpoints: const [
-                    Breakpoint(start: 0, end: 450, name: MOBILE),
-                    Breakpoint(start: 451, end: 800, name: TABLET),
-                    Breakpoint(start: 801, end: 1920, name: DESKTOP),
-                    Breakpoint(start: 1921, end: double.infinity, name: '4K'),
-                  ],
+                  breakpoints: responsiveBreakpoints,
                   child: child!,
                 ),
               ),
