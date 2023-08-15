@@ -1,7 +1,6 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/components/skill_card.dart';
-import 'package:responsive_framework/responsive_breakpoints.dart';
 
 import '../models/skill_model.dart';
 
@@ -20,8 +19,6 @@ class SkillList extends StatefulWidget {
 class _SkillListState extends State<SkillList> {
   @override
   Widget build(BuildContext context) {
-    var screenWidth = ResponsiveBreakpoints.of(context).screenWidth;
-
     return widget.skills.isNotEmpty
         ? CarouselSlider.builder(
             itemCount: widget.skills.length,

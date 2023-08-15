@@ -3,14 +3,13 @@ import 'package:my_portfolio/models/app_model.dart';
 import 'package:my_portfolio/models/skill_model.dart';
 import 'package:my_portfolio/models/work_model.dart';
 
-import 'dart:developer' as developer;
+//import 'dart:developer' as developer;
 
 class FirebaseService {
   Future<AppSetting> getPortfolioSettings() async {
     final db = FirebaseFirestore.instance;
     try {
       final doc = await db.collection('settings').doc('portfolio').get();
-      developer.log('getPortfolioSettings');
 
       return AppSetting.fromJson(doc.data()!);
     } catch (e) {
