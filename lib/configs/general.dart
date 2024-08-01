@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:my_portfolio/components/dialogs.dart';
 import 'package:my_portfolio/models/skill_model.dart';
 import 'package:my_portfolio/models/work_model.dart';
+import 'package:responsive_framework/responsive_framework.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import 'package:http/http.dart' as http;
@@ -39,6 +40,8 @@ class ConfigGeneral {
       released: Timestamp.fromDate(DateTime(2023)),
       type: 'E-commerce',
       url: 'https://cyberzon3.com/',
+      image: '',
+      description: '',
     )
   ];
 
@@ -65,3 +68,10 @@ class ConfigGeneral {
     }
   }
 }
+
+const responsiveBreakpoints = [
+  Breakpoint(start: 0, end: 450, name: MOBILE),
+  Breakpoint(start: 451, end: 800, name: TABLET),
+  Breakpoint(start: 801, end: 1920, name: DESKTOP),
+  Breakpoint(start: 1921, end: double.infinity, name: '4K'),
+];

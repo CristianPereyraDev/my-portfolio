@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_portfolio/pages/contact/contact.dart';
@@ -26,15 +25,27 @@ final router = GoRouter(
         GoRoute(
           path: "/",
           name: 'home',
-          builder: (context, state) => const HomePage(),
+          pageBuilder: (context, state) => CustomTransitionPage(
+            key: state.pageKey,
+            child: const HomePage(),
+            transitionsBuilder: _transitionAnimation,
+          ),
         ),
         GoRoute(
           path: "/work",
-          builder: (context, state) => const WorkPage(),
+          pageBuilder: (context, state) => CustomTransitionPage(
+            key: state.pageKey,
+            child: const WorkPage(),
+            transitionsBuilder: _transitionAnimation,
+          ),
         ),
         GoRoute(
           path: "/contact",
-          builder: (context, state) => const Contact(),
+          pageBuilder: (context, state) => CustomTransitionPage(
+            key: state.pageKey,
+            child: const Contact(),
+            transitionsBuilder: _transitionAnimation,
+          ),
         ),
         GoRoute(
           path: '/initError',
@@ -45,3 +56,22 @@ final router = GoRouter(
     )
   ],
 );
+
+Widget _transitionAnimation(BuildContext context, Animation<double> animation,
+    Animation<double> secondaryAnimation, Widget child) {
+  return FadeTransition(
+    opacity: CurveTween(curve: Curves.easeInOutCirc).animate(animation),
+    child: child,
+  );
+}
+
+extension GoRouterExtension on GoRouter {
+  String get location {
+    final RouteMatch lastMatch = routerDelegate.currentConfiguration.last;
+    final RouteMatchList matchList = lastMatch is ImperativeRouteMatch
+        ? lastMatch.matches
+        : routerDelegate.currentConfiguration;
+    final String location = matchList.uri.toString();
+    return location;
+  }
+}

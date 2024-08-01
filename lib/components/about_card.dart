@@ -12,32 +12,36 @@ class AboutCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var screenWidth = ResponsiveBreakpoints.of(context).screenWidth;
-    var bgColor = Theme.of(context).appBarTheme.backgroundColor ??
-        const Color.fromRGBO(46, 46, 41, 1.0);
+    final textTheme = Theme.of(context).textTheme;
+    final titleStyle = textTheme.titleLarge;
+    final textScaler = ResponsiveBreakpoints.of(context).isMobile
+        ? 1.0
+        : ResponsiveBreakpoints.of(context).isTablet
+            ? 1.1
+            : 1.2;
 
-    return Card(
-      elevation: 10.0,
-      color: bgColor.withOpacity(0.8),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(4.0 * screenWidth * .001),
-          topRight: Radius.circular(16.0 * screenWidth * .001),
-          bottomLeft: Radius.circular(64.0 * screenWidth * .001),
-          bottomRight: Radius.circular(4.0 * screenWidth * .001),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          "About",
+          style: titleStyle?.copyWith(
+            color: Theme.of(context).colorScheme.secondary,
+            shadows: [const Shadow(blurRadius: 3.0, offset: Offset(0.0, 2.0))]
+          ),          
+          textScaler: TextScaler.linear(textScaler),
         ),
-      ),
-      child: Container(
-        padding: EdgeInsets.all(40.0 * screenWidth * .001),
-        child: Text(
+        const SizedBox(
+          height: 16.0,
+        ),
+        Text(
           appSettings.aboutText,
-          textScaleFactor: ResponsiveBreakpoints.of(context).isMobile
-              ? 1.0
-              : ResponsiveBreakpoints.of(context).isTablet
-                  ? 1.1
-                  : 1.2,
+          style: textTheme.bodySmall,
+          textScaler: TextScaler.linear(
+            textScaler,
+          ),
         ),
-      ),
+      ],
     );
   }
 }

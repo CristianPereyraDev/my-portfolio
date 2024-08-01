@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:my_portfolio/pages/main_scaffold.dart';
 
 class DesktopIcon extends StatelessWidget {
-  const DesktopIcon({Key? key}) : super(key: key);
+  const DesktopIcon({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +34,7 @@ class DesktopIcon extends StatelessWidget {
                     TextStyle(color: Theme.of(context).colorScheme.secondary),
               )
             ]),
-            textScaleFactor: 1,
+            textScaler: const TextScaler.linear(1),            
           ),
         ],
       ),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
 class InitializationError extends StatelessWidget {
-  const InitializationError({Key? key}) : super(key: key);
+  const InitializationError({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,8 @@ class InitializationError extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             'Ha ocurrido un error, por favor inténtelo de nuevo más tarde...',
-            textScaleFactor: breakpoints.smallerOrEqualTo(MOBILE) ? 1.0 : 1.2,
+            textScaler: TextScaler.linear(
+                breakpoints.smallerOrEqualTo(MOBILE) ? 1.0 : 1.2),
           ),
         ),
       ),

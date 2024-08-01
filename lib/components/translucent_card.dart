@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class TranslucentCard extends StatelessWidget {
-  const TranslucentCard({Key? key, required this.child}) : super(key: key);
+  const TranslucentCard({super.key, required this.child});
 
   final Widget child;
 

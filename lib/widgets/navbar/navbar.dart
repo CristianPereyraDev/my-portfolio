@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:go_router/go_router.dart';
 import 'package:my_portfolio/components/desktop_icon.dart';
+import 'package:my_portfolio/components/navigation_button.dart';
 import 'package:my_portfolio/configs/general.dart';
 import 'package:my_portfolio/models/app_model.dart';
 import 'package:my_portfolio/pages/main_scaffold.dart';
@@ -23,10 +24,14 @@ enum Navigation {
 }
 
 class DrawerMenu extends StatelessWidget {
-  const DrawerMenu({Key? key}) : super(key: key);
+  const DrawerMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final emailContactStyle = Theme.of(context).textTheme.bodySmall?.copyWith(
+          color: Theme.of(context).colorScheme.secondary,
+        );
+
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 8.0),
       child: Column(
@@ -45,8 +50,14 @@ class DrawerMenu extends StatelessWidget {
             ),
           ),
           const Expanded(child: SizedBox(width: 10.0)),
-          const Text('Cristian Pereyra - Full Stack Developer'),
-          const Text('cristian.pereyra.dev@gmail.com')
+          const Divider(height: 1.0, thickness: 1.0),
+          const SizedBox(height: 10.0),
+          const DesktopIcon(),
+          const SizedBox(height: 10.0),
+          Text(
+            'cristian.pereyra.dev@gmail.com',
+            style: emailContactStyle,
+          )
         ],
       ),
     );
@@ -54,7 +65,7 @@ class DrawerMenu extends StatelessWidget {
 }
 
 class ResponsiveAppBar extends StatelessWidget {
-  const ResponsiveAppBar({Key? key, required this.height}) : super(key: key);
+  const ResponsiveAppBar({super.key, required this.height});
 
   final double height;
 
@@ -68,13 +79,9 @@ class ResponsiveAppBar extends StatelessWidget {
     if (responsiveBreakpoints.largerThan(TABLET)) {
       actions = [
         ...Navigation.values.map(
-          (e) => TextButton(
-            onPressed: () {
-              MainScaffold.of(context)
-                  .updateAppBarTitle(newTitle: e.capitalizedName);
-              context.go(e.path);
-            },
-            child: Text(e.capitalizedName),
+          (e) => NavigationButton(
+            text: e.capitalizedName,
+            path: e.path,
           ),
         )
       ];
@@ -98,7 +105,8 @@ class ResponsiveAppBar extends StatelessWidget {
     return AppBar(
       toolbarHeight: height,
       centerTitle: true,
-      title: const AppBarTitle(),
+      title:
+          responsiveBreakpoints.largerThan(TABLET) ? null : const AppBarTitle(),
       leadingWidth: responsiveBreakpoints.largerThan(TABLET) ? 180.0 : 56.0,
       leading: Builder(builder: (context) {
         return responsiveBreakpoints.largerThan(TABLET)

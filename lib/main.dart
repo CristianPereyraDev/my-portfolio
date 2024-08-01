@@ -1,6 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/configs/general.dart';
 import 'package:my_portfolio/configs/themes.dart';
 import 'package:my_portfolio/models/app_model.dart';
 import 'package:my_portfolio/pages/errors/initialization_error.dart';
@@ -12,13 +13,6 @@ import 'firebase_options.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:responsive_framework/responsive_framework.dart';
 
-const responsiveBreakpoints = [
-  Breakpoint(start: 0, end: 450, name: MOBILE),
-  Breakpoint(start: 451, end: 800, name: TABLET),
-  Breakpoint(start: 801, end: 1920, name: DESKTOP),
-  Breakpoint(start: 1921, end: double.infinity, name: '4K'),
-];
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -27,7 +21,8 @@ void main() async {
 
   if (kDebugMode) {
     try {
-      FirebaseFirestore.instance.useFirestoreEmulator('localhost', 5050);
+      print("Emulando Firestore en localhost:5050");
+      //FirebaseFirestore.instance.useFirestoreEmulator('localhost', 5050);
     } catch (e) {
       // ignore: avoid_print
       print(e);
@@ -52,9 +47,7 @@ class MyApp extends StatelessWidget {
               title: '{ Cr-Dev }',
               theme: themeDark.copyWith(
                 textTheme: GoogleFonts.secularOneTextTheme(themeDark.textTheme),
-                appBarTheme: const AppBarTheme(
-                  color: Color.fromRGBO(46, 46, 41, 1),
-                ),
+                //appBarTheme: appBarThemeDark,
               ),
               home: const ResponsiveBreakpoints(
                 breakpoints: responsiveBreakpoints,
@@ -70,10 +63,7 @@ class MyApp extends StatelessWidget {
                 title: '{ Cr-Dev }',
                 theme: themeDark.copyWith(
                   textTheme:
-                      GoogleFonts.secularOneTextTheme(themeDark.textTheme),
-                  appBarTheme: const AppBarTheme(
-                    color: Color.fromRGBO(46, 46, 41, 1),
-                  ),
+                      GoogleFonts.notoSansTextTheme(themeDark.textTheme),
                 ),
                 builder: (context, child) => ResponsiveBreakpoints(
                   breakpoints: responsiveBreakpoints,
@@ -88,9 +78,6 @@ class MyApp extends StatelessWidget {
             title: '{ Cr-Dev }',
             theme: themeDark.copyWith(
               textTheme: GoogleFonts.secularOneTextTheme(themeDark.textTheme),
-              appBarTheme: const AppBarTheme(
-                color: Color.fromRGBO(46, 46, 41, 1),
-              ),
             ),
             home: const Scaffold(
               body: Center(child: CircularProgressIndicator()),

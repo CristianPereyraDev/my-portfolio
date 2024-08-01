@@ -3,8 +3,6 @@ import 'package:my_portfolio/models/app_model.dart';
 import 'package:my_portfolio/models/skill_model.dart';
 import 'package:my_portfolio/models/work_model.dart';
 
-//import 'dart:developer' as developer;
-
 class FirebaseService {
   Future<AppSetting> getPortfolioSettings() async {
     final db = FirebaseFirestore.instance;
@@ -25,7 +23,22 @@ class FirebaseService {
       final works = await db.collection('works').get();
 
       for (var work in works.docs) {
-        result.add(Work.fromJson(work.data()));
+        final workData = work.data();
+        final List<Map<String, dynamic>> skills = [];
+
+        if (workData["skills"] != null) {
+          // Get skills
+          for (DocumentReference<Map<String, dynamic>> skill
+              in workData["skills"]) {
+            final skillDoc = await skill.get();
+            skills.add(skillDoc.data()!);
+            // final skillDoc = await db.collection('skills').doc(skill).get();
+            // skills.add(Skill.fromJson(skillDoc.data()!));
+          }
+        }
+
+        workData["skills"] = skills;
+        result.add(Work.fromJson(workData));
       }
 
       return result;
