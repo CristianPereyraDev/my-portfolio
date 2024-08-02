@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:my_portfolio/components/project_card.dart';
-import 'package:my_portfolio/configs/general.dart';
 import 'package:my_portfolio/models/work_model.dart';
 import 'package:my_portfolio/services/firebase_service.dart';
 
-const _scrollViewHeight = 408.0;
+const _scrollViewHeight = 600.0;
 const _scrollViewWidth = 400.0;
 
 class WorkPage extends StatefulWidget {
@@ -30,40 +29,43 @@ class _WorkPageState extends State<WorkPage> {
       builder: (context, snapshot) {
         if (snapshot.hasData && snapshot.data!.isNotEmpty) {
           final works = snapshot.data ?? [];
-    
+
           return Center(
             child: SizedBox(
               height: _scrollViewHeight,
               width: _scrollViewWidth,
               child: Card(
                 elevation: 4.0,
-                clipBehavior: Clip.antiAlias,                
+                clipBehavior: Clip.antiAlias,
                 child: CustomScrollView(
-                  slivers: works
-                      .map(
-                        (work) => SliverPersistentHeader(
-                          pinned: false,
-                          floating: false,
-                          delegate: ProjectHeaderDelegate(work),
-                        ),
-                      )
-                      .toList(),
+                  slivers: _makeSliverList(works),
                 ),
               ),
             ),
           );
-        } else if (snapshot.hasError || snapshot.hasData) {
-          return ListView.builder(
-            itemCount: ConfigGeneral.works.length,
-            itemBuilder: (context, index) => ProjectCard(
-              work: ConfigGeneral.works[index],
+        } else if (snapshot.hasError) {
+          return Center(
+            child: Column(
+              children: [
+                const Text('Error while fetching works. 😢'),
+                Text(snapshot.error.toString()),
+              ],
+            ),
+          );
+        } else if (snapshot.hasData) {
+          return Center(
+            child: Column(
+              children: [
+                const Text('There are no Works to show. 😢'),
+                Text(snapshot.error.toString()),
+              ],
             ),
           );
         }
         return const Center(
           child: SizedBox(
-            width: 100,
-            height: 100,
+            width: 50,
+            height: 50,
             child: CircularProgressIndicator(),
           ),
         );
@@ -71,3 +73,33 @@ class _WorkPageState extends State<WorkPage> {
     );
   }
 }
+
+List<Widget> _makeSliverList(List<Work> works) {
+  List<Widget> slivers = [];
+
+  for (var work in works) {
+    slivers
+      ..add(
+        SliverPersistentHeader(
+          pinned: false,
+          floating: false,
+          delegate: ProjectHeaderDelegate(
+            work: work,
+            minHeight: 50.0,
+            maxHeight: 300.0,
+          ),
+        ),
+      )
+      ..add(
+        SliverList(
+          delegate: SliverChildListDelegate(
+            [ProjectDescription(work: work)],
+          ),
+        ),
+      );
+  }
+
+  return slivers;
+}
+
+

@@ -11,9 +11,9 @@ class Skill {
 
   factory Skill.fromJson(Map<String, dynamic> json) {
     return Skill(
-      name: json['name'],
-      description: json['description'],
-      imageURL: json['imageURL'],
+      name: json['name'] ?? "No name provided",
+      description: json['description'] ?? "No description provided",
+      imageURL: json['imageURL'] ?? "No imageURL provided",
     );
   }
 }

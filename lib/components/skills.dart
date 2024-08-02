@@ -5,7 +5,7 @@ import '../models/skill_model.dart';
 
 const _skillHeight = 40.0;
 const _skillListHeaderHeight = 40.0;
-const _skillListBodyHeight = _skillHeight * 6;
+const _skillListBodyHeight = _skillHeight * 7;
 const _skillListWidth = 400.0;
 const _skillListBodyVerticalPadding = 8.0;
 const _skillListBodyHorizontalPadding = 8.0;

@@ -32,8 +32,6 @@ class FirebaseService {
               in workData["skills"]) {
             final skillDoc = await skill.get();
             skills.add(skillDoc.data()!);
-            // final skillDoc = await db.collection('skills').doc(skill).get();
-            // skills.add(Skill.fromJson(skillDoc.data()!));
           }
         }
 

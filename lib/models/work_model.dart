@@ -21,16 +21,17 @@ class Work {
 
   factory Work.fromJson(Map<String, dynamic> json) {
     return Work(
-        skills: json['skills'] != null
-            ? (json['skills'] as List)
-                .map((skill) => Skill.fromJson(skill))
-                .toList()
-            : [],
-        name: json['name'],
-        description: json['description'] ?? "",
-        image: json['image'] ?? "",
-        released: json['released'],
-        type: json['type'],
-        url: json['url']);
+      skills: json['skills'] != null
+          ? (json['skills'] as List)
+              .map((skill) => Skill.fromJson(skill))
+              .toList()
+          : [],
+      name: json['name'],
+      description: json['description'] ?? "No description provided.",
+      image: json['image'] ?? "No image provided.",
+      released: json['released'] ?? "No released date provided.",
+      type: json['type'] ?? "No type provided.",
+      url: json['url'] ?? "No url provided.",
+    );
   }
 }
