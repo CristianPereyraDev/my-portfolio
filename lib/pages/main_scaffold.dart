@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_portfolio/components/background.dart';
 import 'package:my_portfolio/components/responsive_content.dart';
 import 'package:my_portfolio/widgets/navbar/navbar.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -68,7 +69,10 @@ class MainScaffoldState extends State<MainScaffold> {
         ),
         body: Stack(
           alignment: AlignmentDirectional.center,
-          children: [Center(child: ResponsiveContent(content: widget.child))],
+          children: [
+            const Background(),
+            Center(child: ResponsiveContent(content: widget.child))
+          ],
         ),
       ),
     );

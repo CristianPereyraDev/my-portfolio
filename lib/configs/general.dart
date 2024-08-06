@@ -16,6 +16,7 @@ class ConfigGeneral {
     Skill(
       name: 'Javacript',
       description: '',
+      level: 0.8,
       imageURL:
           'https://res.cloudinary.com/drwmwymbb/image/upload/fl_preserve_transparency/v1685384054/Icons/icons8-javascript_1_scczhs.webp',
     ),
@@ -23,12 +24,14 @@ class ConfigGeneral {
       name: 'React.js',
       description:
           'Biblioteca Javascript de código abierto diseñada para crear interfaces de usuario con el objetivo de facilitar el desarrollo de aplicaciones en una sola página',
+      level: 0.8,
       imageURL:
           'https://res.cloudinary.com/drwmwymbb/image/upload/c_scale,fl_preserve_transparency,w_128/v1685384055/Icons/react-2_ja0ty3.webp',
     ),
     Skill(
       name: 'Node.js',
       description: '',
+      level: 0.8,
       imageURL:
           'https://res.cloudinary.com/drwmwymbb/image/upload/v1685429864/Icons/nodejs.webp',
     ),

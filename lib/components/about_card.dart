@@ -27,7 +27,7 @@ class AboutCard extends StatelessWidget {
           "About",
           style: titleStyle?.copyWith(
             color: Theme.of(context).colorScheme.secondary,
-            shadows: [const Shadow(blurRadius: 3.0, offset: Offset(0.0, 2.0))]
+            shadows: [const Shadow(blurRadius: 4.0, offset: Offset(0.0, 1.0))]
           ),          
           textScaler: TextScaler.linear(textScaler),
         ),
@@ -36,7 +36,7 @@ class AboutCard extends StatelessWidget {
         ),
         Text(
           appSettings.aboutText,
-          style: textTheme.bodySmall,
+          style: textTheme.bodyMedium,
           textScaler: TextScaler.linear(
             textScaler,
           ),

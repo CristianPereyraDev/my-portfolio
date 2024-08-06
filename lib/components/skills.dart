@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/components/skill_card.dart';
+import 'package:my_portfolio/components/skill_label.dart';
 
 import '../models/skill_model.dart';
 
@@ -31,21 +31,18 @@ class _SkillListState extends State<SkillList> {
 
     final skills = CustomScrollView(
       slivers: [
-        SliverFixedExtentList(
-          itemExtent: _skillHeight,
+        SliverList(
           delegate: SliverChildBuilderDelegate(
             (context, index) => Container(
               decoration: const BoxDecoration(
                 border: BorderDirectional(
                   bottom: BorderSide(
-                    color: Color.fromRGBO(46, 46, 46, 1),
+                    color: Color.fromRGBO(34, 34, 34, 1),
                   ),
                 ),
               ),
-              child: SkillCard(
-                title: widget.skills[index].name,
-                description: widget.skills[index].description,
-                imageUrl: widget.skills[index].imageURL,
+              child: SkillLabel(
+                skill: widget.skills[index],
               ),
             ),
             childCount: widget.skills.length,
@@ -86,7 +83,7 @@ class _SkillListState extends State<SkillList> {
                         child: Text(
                           "My Skills",
                           style:
-                              Theme.of(context).textTheme.titleSmall?.copyWith(
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
                                     color: titleColor,
                                   ),
                         ),

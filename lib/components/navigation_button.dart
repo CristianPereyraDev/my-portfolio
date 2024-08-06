@@ -41,6 +41,8 @@ class _NavigationButtonState extends State<NavigationButton> {
         widget.text,
         style: TextStyle(
           decoration: textDecoration,
+          decorationColor: Theme.of(context).colorScheme.secondary,
+          decorationThickness: 2.0,
         ),
       ),
     );
