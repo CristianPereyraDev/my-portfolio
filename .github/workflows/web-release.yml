@@ -23,7 +23,8 @@ jobs:
         run: flutter pub get
 
       - name: Start release build
-        run: flutter build web --release --web-renderer html --no-tree-shake-icons
+        run: flutter build web --release --no-tree-shake-icons
+        # run: flutter build web --release --web-renderer html --no-tree-shake-icons
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
