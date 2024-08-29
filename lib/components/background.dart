@@ -1,7 +1,8 @@
-import 'dart:async';
 import 'dart:math';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 class Background extends StatefulWidget {
   const Background({super.key});
@@ -10,27 +11,35 @@ class Background extends StatefulWidget {
   State<Background> createState() => _BackgroundState();
 }
 
-class _BackgroundState extends State<Background> {
+class _BackgroundState extends State<Background>
+    with SingleTickerProviderStateMixin {
   late List<Particle> particles;
+  late Ticker _ticker;
 
   @override
   void initState() {
+    super.initState();
+
     particles = List.generate(
       50,
       (index) => Particle.random(
         width: 600,
         height: 701,
+        maxXSpeed: 1.0,
+        maxYSpeed: 0.5,
       ),
     );
 
-    update();
-    super.initState();
-  }
-
-  update() {
-    Timer.periodic(const Duration(milliseconds: 100), (timer) {
+    _ticker = createTicker((elapsed) {
       setState(() {});
     });
+    _ticker.start();
+  }
+
+  @override
+  void dispose() {
+    _ticker.dispose();
+    super.dispose();
   }
 
   @override
@@ -83,7 +92,7 @@ class ParticlesPainter extends CustomPainter {
       }
 
       var paint = Paint()
-        ..color = const Color.fromARGB(255, 114, 143, 103)
+        ..color = const Color.fromRGBO(114, 143, 103, 1.0)
         ..style = PaintingStyle.fill;
       var circlePosition = Offset(particle.x, particle.y);
 
@@ -104,6 +113,7 @@ class Particle {
   late double ySpeed;
   late double x;
   late double y;
+  late double opacity;
 
   Particle({
     required this.width,
@@ -115,11 +125,16 @@ class Particle {
   Particle.random({
     required this.width,
     required this.height,
+    double maxXSpeed = 1,
+    double maxYSpeed = 0.5,
+    double minRadius = 2,
+    double maxRadius = 4,
   }) {
     x = Random().nextDouble() * width;
     y = Random().nextDouble() * height;
-    r = (0.2 + Random().nextDouble()) * 2;
-    xSpeed = Random().nextDouble() * 5;
-    ySpeed = Random().nextDouble() * 1.5;
+    r = clampDouble(Random().nextDouble() * maxRadius, minRadius, maxRadius);
+    xSpeed = Random().nextDouble() * maxXSpeed;
+    ySpeed = Random().nextDouble() * maxYSpeed;
+    opacity = Random().nextDouble().clamp(0.3, 1.0);
   }
 }
