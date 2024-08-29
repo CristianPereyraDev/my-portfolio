@@ -180,7 +180,7 @@ class SkillLabel extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         color: Color.fromRGBO(194, 205, 73, 1.0),
-        borderRadius: BorderRadius.all(Radius.circular(4.0)),
+        borderRadius: BorderRadius.all(Radius.circular(8.0)),
       ),
       padding: const EdgeInsets.symmetric(
         vertical: 4.0,
@@ -188,8 +188,9 @@ class SkillLabel extends StatelessWidget {
       ),
       child: Text(
         name,
-        style: Theme.of(context).textTheme.bodySmall?.copyWith(
-              color: const Color.fromRGBO(46, 46, 41, 1.0),
+        style: Theme.of(context).textTheme.labelSmall?.copyWith(
+              color: const Color.fromARGB(255, 56, 56, 20),
+              fontWeight: FontWeight.w900,
             ),
       ),
     );
@@ -233,7 +234,10 @@ class ProjectLabel extends StatelessWidget {
           ),
           Text(
             name,
-            style: const TextStyle(color: Color.fromRGBO(190, 140, 124, 1.0)),
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.secondary,
+              fontWeight: FontWeight.w700,
+            ),
             textScaler: TextScaler.linear(fontScale),
           ),
         ],

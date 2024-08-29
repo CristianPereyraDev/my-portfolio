@@ -38,7 +38,7 @@ class _WorkPageState extends State<WorkPage> {
                 elevation: 4.0,
                 clipBehavior: Clip.antiAlias,
                 child: CustomScrollView(
-                  slivers: _makeSliverList(works),
+                  slivers: _makeSliverListFromWorks(works),
                 ),
               ),
             ),
@@ -74,7 +74,7 @@ class _WorkPageState extends State<WorkPage> {
   }
 }
 
-List<Widget> _makeSliverList(List<Work> works) {
+List<Widget> _makeSliverListFromWorks(List<Work> works) {
   List<Widget> slivers = [];
 
   for (var work in works) {

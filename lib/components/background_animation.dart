@@ -4,14 +4,14 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 
-class Background extends StatefulWidget {
-  const Background({super.key});
+class BackgroundAnimation extends StatefulWidget {
+  const BackgroundAnimation({super.key});
 
   @override
-  State<Background> createState() => _BackgroundState();
+  State<BackgroundAnimation> createState() => _BackgroundAnimationState();
 }
 
-class _BackgroundState extends State<Background>
+class _BackgroundAnimationState extends State<BackgroundAnimation>
     with SingleTickerProviderStateMixin {
   late List<Particle> particles;
   late Ticker _ticker;

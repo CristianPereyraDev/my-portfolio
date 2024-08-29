@@ -8,6 +8,14 @@ final themeDark = ThemeData.from(
     onSurface: Color.fromRGBO(212, 212, 212, 1.0),
     inverseSurface: Color.fromRGBO(131, 131, 131, 1),
   ),
+  textTheme: const TextTheme(
+    labelSmall: TextStyle(
+      fontWeight: FontWeight.bold,
+    ),
+    bodyMedium: TextStyle(
+      color: Color.fromRGBO(177, 177, 177, 1),
+    )
+  ),
 ).copyWith(
   scaffoldBackgroundColor: const Color.fromRGBO(28, 28, 28, 1.0),
   appBarTheme: const AppBarTheme(

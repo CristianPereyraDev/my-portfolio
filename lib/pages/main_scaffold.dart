@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:my_portfolio/components/background.dart';
+import 'package:my_portfolio/components/background_animation.dart';
 import 'package:my_portfolio/components/responsive_content.dart';
 import 'package:my_portfolio/widgets/navbar/navbar.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -70,7 +70,7 @@ class MainScaffoldState extends State<MainScaffold> {
         body: Stack(
           alignment: AlignmentDirectional.center,
           children: [
-            const Background(),
+            const BackgroundAnimation(),
             Center(child: ResponsiveContent(content: widget.child))
           ],
         ),

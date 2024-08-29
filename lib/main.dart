@@ -62,8 +62,7 @@ class MyApp extends StatelessWidget {
                 routerConfig: router,
                 title: '{ Cr-Dev }',
                 theme: themeDark.copyWith(
-                  textTheme:
-                      GoogleFonts.notoSansTextTheme(themeDark.textTheme),
+                  textTheme: GoogleFonts.eczarTextTheme(themeDark.textTheme),
                 ),
                 builder: (context, child) => ResponsiveBreakpoints(
                   breakpoints: responsiveBreakpoints,
